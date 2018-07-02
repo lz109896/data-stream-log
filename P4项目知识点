@@ -1,0 +1,221 @@
+# 针对 P4项目的总结
+#### 首先是HTML的模块化拼写
+* 首先这个前提是 HTML模块化结构 要写的好！重要
+* xxxHtmlTpl(dataarry)：利用HTML模块化传入json数据进行数组化拼接，最后再使用join('')转化为字符串。
+* messageTpl(messageData):把单个消息体整合到一起
+* render() 根据json把所有消息整合在一起
+* init() 页面初始化函数
+
+#### 事件绑定
+* 整个流程就是  选择元素 → 绑定事件  →  执行相应的操作。
+```html
+1、绑定事件记住要添加  e.stopPropagation(); //阻止事件冒泡
+
+2、这次主要用的jq，其中 选择器重大作用有：【真的是超级好用】
+        xxx.closest('.moments-item') :找到xxx指定('.moments-item')祖先元素
+        xxx.find('.reply-like'):找到xxx指定('.reply-like')后代元素
+
+3、append()把DOM添加到最后，prepend()则把DOM添加到最前。
+
+4、eq(下标)
+
+5、//一句话实现 点击自身切换样式效果
+        $(e.currentTarget).prev().toggleClass('item-reply-pop-trans');
+```
+
+#### 数据的增加和删除展示
+* 这里是难点，当初做的时候没有考虑到  去修改json数据
+* 做法：根据dataindex 找到对应的json数组然后去操作数组，关键是调用 已有的htmlTpl函数把html重新拼接起来，然后添加到对应的地方
+* 期间主要涉及到，数组的操作添加删除、选择器、DOM的添加删除
+
+
+# Part4 JS、Jquery 学习总结-YYL    --2017-7-17
+这节主要是js\jquery基础知识，但是基础很重要。
+## JS块
+#### JS数组
+[数组操作](http://www.w3school.com.cn/jsref/jsref_obj_array.asp)
+#### 转换方法
+* toString()：返回由数组中每个值的字符串形式拼接而成的一个以逗号分隔的字符串
+* join(): 接收一个参数,即用作分隔符的字符串,然后返回包含所有数组项的字符串
+```js
+var colors=["red","green","blue"];
+alert(colors.join("||"));//red||green||blue
+```
+
+#### 数组操作 -增删
+* push():  接收任意数量的参数，把它们逐个添加到数组末尾,并返回修改后数组的长度
+* pop(): 删除最后一个值，并返回删除的值。
+* shift(): 移除数组中第一个项并返回改项,同时将数组长度减1.
+* unshift(): 在数组前端添加任意个项并返回新数组的长度.
+综上例子：
+```js
+var n=new Array("张三","李四");
+            n.push("王五");//添加参数到数组末尾,并修改数组长度
+            n.shift();//移除数组第一项,并返回该项
+
+            n.unshift("小钱");//添加参数到数组前端
+            n.pop();//从数组末尾移除最后一项
+
+            //循环显示出数组的值
+            for(var i=0;i<n.length;i++)
+            {
+                console.log(n[i]);
+            }
+　　　　　　　//小钱 李四
+```
+* indexOf(): 从数组的开头(位置0)开始向后查找.
+* splice(): 方法恐怕要算是最强大的数组方法了,它有很多种用法。(使用可以再百度)
+```html
+splice()的主要用途是向数组的中部插入项,但使用这种方法的方式则有如下3种
+
+a:删除：可以删除任意数量的项,只需指定2个参数:要删除的第一项的位置和要删除的项数.
+
+列如：splice(0,2)会删除数组中的前两项.
+
+b:插入:可以向指定位置插入任意数量的项,只需要提供3个参数:起始位置,0(要删除的项数)和要插入的项.
+
+如何要插入多个项,可以再传入第四,第五,以至任意多个项.
+
+列如:splice(2,0,"red","green")会从当前数组的位置2开始插入字符串"red"和"green"
+
+c:替换:可以向指定位置插入任意数量的项,且同时删除任意数量的项,只需要提供3个参数:起始位置,要删除的项数和要插入的任意数量的项.
+
+插入的项数不必和和删除的项数相等.
+
+列如:splice(2,1,"red","green")会删除当前数组位置2的项,然后再从位置2开始插入字符串"red"和"green"
+```
+
+## DOM文档操作
+[js中的DOM操作汇总](http://www.cnblogs.com/shytong/p/4995185.html)
+
+* 创建对象createElement
+
+
+## 事件
+* onload 和 onunload 事件会在用户进入或离开页面时被触发。
+>
+onload 事件可用于检测访问者的浏览器类型和浏览器版本，并基于这些信息来加载网页的正确版本。
+onload 和 onunload 事件可用于处理 cookie。
+
+* onchange：用户改变域的内容;onchange 事件常结合对输入字段的验证来使用。
+* onclick: 鼠标点击某个对象
+* ondblclick：鼠标双击某个对象
+* onfocus：元素获得焦点
+* onmouseover 和 onmouseout 事件可用于在用户的鼠标移至 HTML 元素上方或移出元素时触发函数。
+* onreset: 重置按钮被点击
+* onsubmit: 提交按钮被点击
+
+
+## Jquery控制
+### 选择器：超级神奇
+* 简单就不说了。
+##### 层叠选择器：
+* $("form input")         选择所有的form元素中的input元素
+* $("#main > *")          选择id值为main的所有的子元素
+* $("label + input")     选择所有的label元素的下一个input元素节点，经测试选择器返回的是label标签后面直接跟一个input标签的所有input标签元素
+#### 基本过滤选择器：
+* $("tr:first")               选择所有tr元素的第一个
+* $("tr:last")                选择所有tr元素的最后一个
+* $("input:not(:checked) + span")   过滤掉：checked的选择器的所有的input元素
+* $("td:eq(2)")             选择所有的td元素中序号为2的那个td元素
+* $("input[name='newsletter']")  选择所有的name属性等于'newsletter'的input元素
+* $("ul li:nth-child(2)")　　子元素过滤器
+
+#### 表单元素选择器：
+* $(":input")     选择所有的表单输入元素，包括input, textarea, select 和 button
+* $(":radio")                   选择所有的radio input元素
+* $(":checkbox")            选择所有的checkbox input元素
+
+* $(":enabled")             选择所有的可操作的表单元素
+* $(":disabled")            选择所有的不可操作的表单元素
+* $(":checked")            选择所有的被checked的表单元素
+* $("select option:selected") 选择所有的select 的子元素中被selected的元素
+
+### jquery 遍历查找
+#### 向上遍历 DOM 树
+* parent() 方法返回被选元素的直接父元素。
+* parents() 方法返回被选元素的所有祖先元素，它一路向上直到文档的根元素 (<html>)。
+*
+#### 后代
+* children() 方法返回第一代指定子元素
+* find() 方法直接查找子元素下面的 指定元素直到最后一代元素
+> $("div").find("span");
+#### 同胞
+* siblings() 方法返回被选元素的所有同胞元素。
+* next() 方法返回被选元素的下一个同胞元素。
+* prev() 方法返回被选元素的前一个同胞元素。
+* eq() 方法返回被选元素中带有指定索引号的元素。
+* last() 方法返回被选元素的最后一个元素。
+* first() 方法返回被选元素的首个元素。
+### Jquery DOME操作
+
+#### 修改Text和HTML
+* 对象的text()和html()方法分别获取节点的文本和原始HTML文本
+* 无参数调用text()是获取文本，传入参数就变成设置文本。
+>$('#test-ul li').text('JS'); // 多个 li 节点都变成了JS,因为会作用在对应的一组DOM节点上。
+
+#### 修改CSS
+* css()方法将修改DOM节点的style属性，具有最高优先级。
+```js
+var div = $('#test-div');
+div.css('color'); // '#000033', 获取CSS属性
+div.css('color', '#336699'); // 设置CSS属性
+div.css('color', ''); // 清除CSS属性
+```
+* 如果要修改class属性
+```js
+var div = $('#test-div');
+div.hasClass('highlight'); // false， class是否包含highlight
+div.addClass('highlight'); // 添加highlight这个class
+div.removeClass('highlight'); // 删除highlight这个class
+```
+#### 显示和隐藏DOM：
+* a.hide(); // 隐藏     a.show(); // 显示
+#### 获取DOM信息
+* 浏览器可视窗口大小:
+>
+$(window).width(); // 800
+$(window).height(); // 600
+
+* attr()和removeAttr()方法用于操作DOM节点的属性：
+```js
+// <div id="test-div" name="Test" start="1">...</div>
+var div = $('#test-div');
+div.attr('data'); // undefined, 属性不存在
+div.attr('name'); // 'Test'
+div.attr('name', 'Hello'); // div的name属性变为'Hello'
+div.removeAttr('name'); // 删除name属性
+div.attr('name'); // undefined
+```
+#### 操作表单
+* val()方法获取和设置对应的value属性：
+```js
+/*
+    <input id="test-input" name="email" value="">
+    <select id="test-select" name="city">
+        <option value="BJ" selected>Beijing</option>
+        <option value="SH">Shanghai</option>
+        <option value="SZ">Shenzhen</option>
+    </select>
+    <textarea id="test-textarea">Hello</textarea>
+*/
+var input = $('#test-input'),
+    select = $('#test-select'),
+    textarea = $('#test-textarea');
+
+input.val(); // 'test'
+input.val('abc@example.com'); // 文本框的内容已变为abc@example.com
+
+select.val(); // 'BJ'
+select.val('SH'); // 选择框已变为Shanghai
+
+textarea.val(); // 'Hello'
+textarea.val('Hi'); // 文本区域已更新为'Hi'
+
+可见，一个val()就统一了各种输入框的取值和赋值的问题。
+```
+
+#### 添加DOM
+* append()把DOM添加到最后，prepend()则把DOM添加到最前。
+* 同级节点可以用after()或者before()方法。
+* 调用remove()方法,删除指定节点
