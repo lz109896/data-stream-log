@@ -78,6 +78,77 @@ warning  The 'mode' option has not been set, webpack will fallback to
 但是npm run build 这个时候dist的main.js就是压缩了的。哈哈  很高兴吧
 
 
+## webpack4.0版本中的js压缩问题
+#### 报错提示：
+> webpack.optimize.UglifyJsPlugin has been removed, please use config.optimization.minimize instead.
+
+#### 解决方案:
+尽量去官网查找(需要google翻墙):https://webpack.js.org/configuration/optimization/#optimization-minimize
+```
+是webpack版本的问题，在webpack4.0版本中已经废弃了之前 UglifyJsPlugin的用法，用的是config.minimize，然后怎样用optimization呢，
+网上资料很多，但是对于一个不熟悉nodejs的人来说，还是比较困难的，我开始以为直接把new HtmlwebpackPlugin改成optimization就行，
+自然而然的错了。那怎样做呢？
+
+我们需要以下几步：
+
+用npm安装uglifyjs-webpack-plugin插件;
+将其引入：var uglifyjsPlugin=require('uglifyjs-webpack-plugin');
+删除以前的写法，将optimization的JS压缩与plugins并排写在一起，注意，是并排，而不是像以前一样写在plugins里面。
+```
+#### 最后结果如下：
+```js
+var path = require('path');
+var webpack=require('webpack');
+var UglifyJsPlugin=require('uglifyjs-webpack-plugin');
+//这个插件是用来生成html的
+var HtmlwebpackPlugin=require('html-webpack-plugin');
+
+//用于合并两个webpack的配置文件
+module.exports= {
+    entry: './src/js/index.js',
+    output: {
+        filename: 'bundle.js',
+        path: path.resolve(__dirname, './dist')
+    },
+    module: {
+     rules: [{
+      test: /\.css$/,
+      use: ['style-loader', 'css-loader']
+     }]
+    },
+    plugins:[
+        //定义当前生产环境为node环境
+        new webpack.DefinePlugin({
+            'process.env':{
+                NODE_ENV:'"production"'
+            }
+        }),
+        //提取模板，并保存入口html文件
+        //这是来生成html文件的，它通过template选项来读取指定的模板index.ejs,然后输出到filename指定的文件
+        new HtmlwebpackPlugin({
+            // 模板文件
+          template: 'src/html/index.html',
+          // 打包后文件名称，会自动放到 output 指定的 dist 目录
+          filename: 'index.html'
+        })
+    ],
+     //压缩js
+    optimization: {
+        minimizer: [
+            new UglifyJsPlugin({
+                uglifyOptions: {
+                    compress: false
+                }
+            })
+        ]
+    },
+}
+
+```
+
+
+
+
 
 
 
