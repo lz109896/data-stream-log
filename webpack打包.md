@@ -198,6 +198,26 @@ module.exports= {
   }
 
 ```
+## webpack使用 html-webpack-plugin 打包时
+> 报错提示：Error: Cannot find module 'html-webpack-plugin'
+
+
+安装:
+
+  npm i --save-dev html-webpack-plugin
+  
+  yarn add --dev html-webpack-plugin
+  
+这是一个webpack插件，可以简化HTML文件的创建，为您的webpack捆绑服务提供服务。这对于webpack包含文件名中包含哈希值的bundle 来说尤其有用，它会更改每个编译。您可以让插件为您生成HTML文件，使用lodash模板提供您自己的模板或使用您自己的加载器。
+
+再执行打包就可以了
+
+
+
+
+
+
+
 
 
 
