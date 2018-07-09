@@ -99,14 +99,21 @@ module.exports= {
 
 ## 第三步：安装插件
 
-安装 clean-webpack-plugin 命令：  npm i clean-webpack-plugin --save-dev
-安装 copy-webpack-plugin r命令：      npm i copy-webpack-plugin --save-dev
-安装 css-loader命令：                      npm i css-loader --save-dev
-安装 extract-text-webpack-plugi 命令：      npm i extract-text-webpack-plugi --save-dev
-安装 html-webpack-plugin 命令：          npm i html-webpack-plugin --save-dev
-安装 style-loader 命令：                npm i style-loader --save-dev
-安装 webpack 命令：                  npm i webpack --save-dev
-安装 webpack-dev-server 命令：      npm i webpack-dev-server --save-dev
+> 安装 clean-webpack-plugin 命令：  npm i clean-webpack-plugin --save-dev
+
+> 安装 copy-webpack-plugin r命令：      npm i copy-webpack-plugin --save-dev
+
+> 安装 css-loader命令：                      npm i css-loader --save-dev
+
+> 安装 extract-text-webpack-plugi 命令：      npm i extract-text-webpack-plugi --save-dev
+
+> 安装 html-webpack-plugin 命令：          npm i html-webpack-plugin --save-dev
+
+> 安装 style-loader 命令：                npm i style-loader --save-dev
+
+> 安装 webpack 命令：                  npm i webpack --save-dev
+
+> 安装 webpack-dev-server 命令：      npm i webpack-dev-server --save-dev
 
 
 ## 第四步：报错问题官网
@@ -119,10 +126,13 @@ module.exports= {
 
 
 ## 第六步：自动更新
-npm install webpack-cli -D
-全局安装命令： npm i webpack-dev-server -g
-查看安装版本：webpack-dev-server -v
-webpack-dev-server --open
+> npm install webpack-cli -D
+
+> 全局安装命令： npm i webpack-dev-server -g
+
+> 查看安装版本：webpack-dev-server -v
+
+> webpack-dev-server --open
 
 
 
