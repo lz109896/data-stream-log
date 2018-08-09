@@ -11,6 +11,7 @@
 ## git常用命令及功能
 
 git常用命令：
+切换目录：cd /F/lz109896.github.io
 
 git config ：配置git
 
