@@ -46,9 +46,9 @@ git pull server_url/local-alias：更新本地服务器仓库
 
 进行初始化设置，用户名及邮箱。打开git bash，执行命令：
 
-$ git config –global user.name your_name
+$ git config --global user.name your_name
 
-$ git config –global user.email your_email
+$ git config --global user.email your_email
 
 先输入$ssh-keygen –t rsa –C “your_email”,注意ssh-keygen之间是没有空格的,其他的之间是有空格的
 
