@@ -50,7 +50,7 @@ $ git config --global user.name your_name
 
 $ git config --global user.email your_email
 
-先输入$ssh-keygen –t rsa –C “your_email”,注意ssh-keygen之间是没有空格的,其他的之间是有空格的
+先输入$ssh-keygen –t rsa –C "your_email",注意ssh-keygen之间是没有空格的,其他的之间是有空格的
 
 回车之后,会出现一行,让你输入一个保存密钥的地方,括号里面是它默认的位置，这里会让你输入几次内容，都不用输入，直接回车就可以了。
 
