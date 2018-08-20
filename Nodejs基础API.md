@@ -17,11 +17,18 @@ var fs = require('fs');
 var data = fs.readFilesync('data.txt');
 console.log (data.tostring());
 ```
+```js
+//非阻塞代码
+var fs = require('fs');
 
-
-
-
-
+fs.readFile('data.txt', function(err, data){ 
+    if(err){ 
+        return console.error(err);
+    } 
+    console.log(data. tostring());
+}） 
+console.log('程序执行完毕!');
+```
 
 
 
