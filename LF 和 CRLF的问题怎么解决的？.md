@@ -52,7 +52,7 @@ git config --global core.safecrlf true
 你在写文件时，可以看下vscode 编辑器的右下角是不是LF，这里会显示换行符类型，如果不是LF的，你就点击这里进行切换，然后保存文件就行了
 
 
-
+find . -type f -exec dos2unix {} \;
 
 
 
